@@ -1,0 +1,128 @@
+body {
+    width: 90%;
+    display: flex;
+    margin: 1% auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    flex-basis: 100%;
+}
+
+aside {
+    flex-basis: 30%;
+    background-color: aliceblue;
+    border: thin solid black;
+}
+
+form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.basketItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+#products-display {
+    display: flex;
+    flex: content;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#products-display > div {
+    margin: 5%;
+}
+
+.hidden {
+    display: none;
+}
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+#overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 18px;
+    padding: 20px;
+    background-color: white;
+    color: black;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+#check-out-overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+#check-out-overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 18px;
+    padding: 20px;
+    background-color: white;
+    color: black;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+/* Style buttons */
+.btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    padding: 12px 16px;
+    cursor: pointer;
+    background: url("../img/icons8-add-shopping-cart-100.png") no-repeat;
+    background-size: 25px auto;
+}
+
+.btn:hover {
+    background-size: 30px auto;
+}
+
+.btn-total {
+    width: 150px;
+    height: 50px;
+    text-align: right;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    background: url("../img/icons8-shopping-cart-100.png") no-repeat;
+    background-size: 45px auto;
+}
+
+.btn-total:hover {
+    background-size: 50px auto;
+    font-size: 1.2em;
+}
+
+#empty-cart{
+    visibility: visible;
+}

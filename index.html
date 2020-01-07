@@ -7,29 +7,55 @@
     <!--font awesome -->
     <script src="https://kit.fontawesome.com/be773aa673.js" crossorigin="anonymous"></script>
     <!--custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="js/projet2.js"></script>
+    <link rel="stylesheet" href="css/all.css"/>
+    <link rel="stylesheet" href="css/nouislider.css"/>
+    <script src="js/piklor.js"></script>
+    <script src="js/noUiSlider.js"></script>
+    <script src="js/wNumb.js"></script>
 </head>
-<body>
-    <main>
-        <h1>JS Shop</h1>
-        <form id="filters" action="#">
-            <div>
-                <label for="product-type">Catégorie de produits:</label>
-                <select name="product-type" id="product-type">
-                    <option value="T-shirt" selected="selected">T-shirt</option>
-                    <option value="shirt">Shirt</option>
-                    <option value="polo">Polo</option>
-                </select>
-            </div>
-            <div>
-                <label for="sleeves-option">Option pour les manches:</label>
-                <select name="sleeves-option" id="sleeves-option">
-                    <option value="courtes" selected="selected">Courtes</option>
-                    <option value="longues">Longues</option>
-                </select>
-            </div>
-        </form>
-        <form id="custom" action="#">
+<body class="page" onload="createElements();">
+<main>
+    <h1>JS Shop</h1>
+    <div id=IdDrawBox></div>
+    <div id="Options">
+        <div class="picker-wrapper">
+            <button id="ColorButton" class="btnn">Color</button>
+            <div class="color-picker"></div>
+        </div>
+        <td>
+            <div id="sliderHeight" class="sliderDiv"></div>
+        </td>
+        <div id="sliderWidth" class="sliderDiv"></div>
+        <div id="sliderGrid" class="sliderDiv"></div>
+        <div id="boia" class="sliderDiv"></div>
+    </div>
+    <form id="filters" action="#">
+        <div>
+            <label for="product-type">Catégorie de produits:</label>
+            <select name="product-type" id="product-type">
+                <option value="all" selected="selected">All</option>
+                <option value="T-shirt">T-shirt</option>
+                <option value="shirt">Shirt</option>
+                <option value="polo">Polo</option>
+            </select>
+        </div>
+        <div>
+            <label for="sleeves-option">Option pour les manches:</label>
+            <select name="sleeves-option" id="sleeves-option">
+                <option value="all" selected="selected">All</option>
+                <option value="courtes">Courtes</option>
+                <option value="longues">Longues</option>
+            </select>
+        </div>
+
+        <button id="cart-total" class="btn-total" onclick="cart.show()">CHF 0.0</button>
+        <button id="empty-cart" onclick="cart.emptyCart()">Empty cart</button>
+        <button id="check-out" onclick="checkOutProcess.showCheckOutCart()">Check-out</button>
+    </form>
+    <!--    <form id="custom" action="#">
             <div>
                 <label for="width">Largeur :</label>
                 <input type="text" id="width" name="width">
@@ -38,15 +64,206 @@
                 <label for="height">Hauteur :</label>
                 <input type="text" id="height" name="height">
             </div>
-        </form>
-        <hr>
-        <div id="products-display">
-        
-        </div>
-    </main>
+        </form>-->
+    <hr>
+    <div id="products-display"></div>
+    <div id="overlay">
+        <button onclick="cart.hide()">close</button>
+        <div id="overlay-content">Overlay Text</div>
+    </div>
 
-    <aside id="basket">
-    </aside>
-    <script src="script.js"></script>
+    <div id="check-out-overlay">
+        <button onclick="checkOutProcess.hideCheckOutCart()">close</button>
+        <div id="check-out-overlay-content">
+            <div class="creditCardForm">
+                <div class="heading">
+                    <h1>Confirm Purchase</h1>
+                </div>
+                <div class="payment">
+                    <form>
+
+                        <div class="form-group e-mail">
+                            <label for="e-mail">E-mail</label>
+                            <input type="text" class="form-control" id="e-mail">
+                        </div>
+
+                        <div class="form-group owner">
+                            <label for="owner">Owner</label>
+                            <input type="text" class="form-control" id="owner">
+                        </div>
+                        <div class="form-group CVV">
+                            <label for="cvv">CVV</label>
+                            <input type="text" class="form-control" id="cvv">
+                        </div>
+                        <div class="form-group" id="card-number-field">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber">
+                        </div>
+                        <div class="form-group" id="expiration-date">
+                            <label>Expiration Date</label>
+                            <select id="validMonth">
+                                <option value="01">January</option>
+                                <option value="02">February </option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                            <select id="validYear">
+                                <option value="20"> 2020</option>
+                                <option value="21"> 2021</option>
+                                <option value="22"> 2022</option>
+                                <option value="23"> 2023</option>
+                                <option value="24"> 2024</option>
+                                <option value="25"> 2025</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="credit_cards">
+                            <img src="img/icons8-visa-40.png" id="visa">
+                            <img src="img/icons8-mastercard-40.png" id="mastercard">
+                            <img src="img/icons8-american-express-40.png" id="amex">
+                        </div>
+                    </form>
+                    <div class="form-group" id="pay-now">
+                        <button class="btnnn btn-default" id="confirm-purchase" onclick="checkOutProcess.confirmCheckOut()">Confirm</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <form action="https://postmail.invotes.com/send"
+          method="post" id="email_form">
+
+        <input type="text" name="subject" placeholder="Subject" />
+        <textarea name="text" placeholder="Message"></textarea>
+        <input type="hidden" name="access_token" value="58uns3knqlgqvamty0dlucvz" />
+        <!-- return urls can be fully qualified -OR-
+           start with / for root relative -OR-
+           start with . for url relative -->
+        <input type="hidden" name="success_url" value=".?message=Email+Successfully+Sent%21&isError=0" />
+        <input type="hidden" name="error_url" value=".?message=Email+could+not+be+sent.&isError=1" />
+
+
+        <!-- set the reply-to address -->
+        <!-- <input type="text" name="reply_to"
+                    placeholder="Your Email" /> -->
+
+        <!-- to append extra fields, use the extra_ prefix.
+            Entries will be appended to your message body. -->
+        <!-- <input type="text" name="extra_phone_number"
+                    placeholder="Phone Number" /> -->
+
+        <!-- to split your message into 160 chars
+             for an sms gateway -->
+        <!-- <input type="hidden"
+                    name="sms_format" value="true" /> -->
+
+        <input id="submit_form" type="submit" value="Send" />
+        <!-- not required, but we'd appreciate it if you'd link to us somewhere on your site -->
+    </form>
+
+</main>
+<!--<aside id="basket">
+
+    <div id="totalcart">TOTAL</div>
+</aside>-->
+
+<!-- optional, prevents the submit button from being pressed more than once -->
+<script>
+    var submitButton = document.getElementById("submit_form");
+    var form = document.getElementById("email_form");
+    form.addEventListener("submit", function (e) {
+        setTimeout(function() {
+            submitButton.value = "Sending...";
+            submitButton.disabled = true;
+        }, 1);
+    });
+</script>
+
+
+<script src="js/script.js"></script>
+<script>
+    let product;
+    let sliderHeightRef;
+    let sliderWidthRef;
+    let sliderGridRef;
+
+    function createElements() {
+        // product
+        product = new DrawProduct(1);
+
+        //color palette
+        var colorArray = [
+            "#1abc9c"
+            , "#2ecc71"
+            , "#3498db"
+            , "#9b59b6"
+            , "#34495e"
+            , "#16a085"
+            , "#27ae60"
+            , "#2980b9"
+            , "#8e44ad"
+            , "#2c3e50"
+            , "#f1c40f"
+            , "#e67e22"
+            , "#e74c3c"
+            , "#ecf0f1"
+            , "#95a5a6"
+            , "#f39c12"
+            , "#d35400"
+            , "#c0392b"
+            , "#bdc3c7"
+            , "black"];
+
+        var pk = new Piklor(".color-picker", colorArray, {open: ".picker-wrapper .btn"});
+        // color-picker callback function
+        pk.colorChosen(function (col) {
+            document.getElementById("ColorButton").style.background = col;
+            product.updateShirtColor(col);
+
+        });
+
+        // sliders
+        new Slider('sliderHeight', 30, 50, 1, 44, 'hauteur ', ' cm');
+        new Slider('sliderWidth', 35, 55, 1, 44, 'largeur ', ' cm');
+        new Slider('sliderGrid', 0.5, 20, 0.5, 5, 'grille ', ' cm');
+
+        // siders call back functions
+        sliderGridRef = document.getElementById('sliderGrid');
+        sliderGridRef.noUiSlider.on('update', function (values, handle) {
+            product.setGridInterval = sliderGridRef.noUiSlider.get();
+            product.changeGridScale();
+        });
+
+
+        // siders call back functions
+        sliderHeightRef = document.getElementById('sliderHeight');
+        sliderWidthRef = document.getElementById('sliderWidth');
+        sliderHeightRef.noUiSlider.on('update', function (values, handle) {
+            product.updateShirtSizes(sliderHeightRef.noUiSlider.get(), sliderWidthRef.noUiSlider.get());
+        });
+
+        sliderWidthRef.noUiSlider.on('update', function (values, handle) {
+            product.updateShirtSizes(sliderHeightRef.noUiSlider.get(), sliderWidthRef.noUiSlider.get());
+        });
+    }
+
+    function redraw() {
+        product.updateGrid();
+        product.updateShirtSizes(sliderHeightRef.noUiSlider.get(), sliderWidthRef.noUiSlider.get());
+    }
+
+    window.onresize = redraw;
+</script>
 </body>
 </html>
