@@ -87,11 +87,12 @@ function createElements() {
 
     //color palette
     var colorArray = [
-        "#2ecc71"
-        , "#3498db"
-        , "#f1c40f"
-        , "#e74c3c"
-        , "black"];
+        "#3498DB"
+        ,"#2ECC71"
+        , "#F1C40F"
+        , "#E67E22"
+        , "#E74C3C"
+        , "#000000"];
 
     var pk = new Piklor(".color-picker", colorArray, {open: ".picker-wrapper .btnn"});
     // color-picker callback function

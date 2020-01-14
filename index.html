@@ -34,17 +34,16 @@
             <label for="product-type">Catégorie de produits:</label>
             <select name="product-type" id="product-type">
                 <option value="all" selected="selected">All</option>
-                <option value="T-shirt">T-shirt</option>
-                <option value="shirt">Shirt</option>
-                <option value="polo">Polo</option>
+                <option value="t-shirt">T-shirt</option>
+                <option value="suit">Costume</option>
             </select>
         </div>
         <div>
-            <label for="sleeves-option">Option pour les manches:</label>
-            <select name="sleeves-option" id="sleeves-option">
+            <label for="gender-option">Option pour le genre:</label>
+            <select name="gender-option" id="gender-option">
                 <option value="all" selected="selected">All</option>
-                <option value="courtes">Courtes</option>
-                <option value="longues">Longues</option>
+                <option value="homme">Homme</option>
+                <option value="femme">Femme</option>
             </select>
         </div>
 
@@ -52,16 +51,6 @@
         <button id="empty-cart" onclick="cart.emptyCart()">Empty cart</button>
         <button id="check-out" onclick="checkOutProcess.showCheckOutCart()">Check-out</button>
     </form>
-    <!--    <form id="custom" action="#">
-            <div>
-                <label for="width">Largeur :</label>
-                <input type="text" id="width" name="width">
-            </div>
-            <div>
-                <label for="height">Hauteur :</label>
-                <input type="text" id="height" name="height">
-            </div>
-        </form>-->
     <hr>
     <div id="products-display"></div>
     <div id="overlay">
@@ -170,24 +159,6 @@
     </form>
 
 </main>
-<!--<aside id="basket">
-
-    <div id="totalcart">TOTAL</div>
-</aside>-->
-
-<!-- optional, prevents the submit button from being pressed more than once -->
-<script>
-    var submitButton = document.getElementById("submit_form");
-    var form = document.getElementById("email_form");
-    form.addEventListener("submit", function (e) {
-        setTimeout(function() {
-            submitButton.value = "Sending...";
-            submitButton.disabled = true;
-        }, 1);
-    });
-</script>
-
-
 <script src="js/script.js"></script>
 <script src="js/productPicker.js"></script>
 </body>

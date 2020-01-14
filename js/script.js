@@ -303,24 +303,33 @@ class Catalog {
     }
 
     initCatalog() {
-        this.productList.push(new Product(1, 'T-shirt', 'courtes', 12,));
-        this.productList.push(new Product(2, 'T-shirt', 'longues', 13));
-        this.productList.push(new Product(3, 'shirt', 'courtes', 25, 3));
-        this.productList.push(new Product(4, 'shirt', 'longues', 28));
-        this.productList.push(new Product(5, 'polo', 'courtes', 15));
-        this.productList.push(new Product(6, 'polo', 'longues', 17));
-        this.productList.push(new Product(7, 'T-shirt', 'courtes', 12));
-        this.productList.push(new Product(8, 'T-shirt', 'longues', 13));
-        this.productList.push(new Product(9, 'shirt', 'courtes', 25));
-        this.productList.push(new Product(10, 'shirt', 'longues', 28));
-        this.productList.push(new Product(11, 'polo', 'courtes', 15));
-        this.productList.push(new Product(12, 'polo', 'longues', 17));
-        this.productList.push(new Product(13, 'T-shirt', 'courtes', 12));
-        this.productList.push(new Product(14, 'T-shirt', 'longues', 13));
-        this.productList.push(new Product(15, 'shirt', 'courtes', 25));
-        this.productList.push(new Product(16, 'shirt', 'longues', 28));
-        this.productList.push(new Product(17, 'polo', 'courtes', 15));
-        this.productList.push(new Product(18, 'polo', 'longues', 17));
+        this.productList.push(new Product(1, 't-shirt', 'homme', 12,"black"));
+        this.productList.push(new Product(2, 't-shirt', 'homme', 12,"red"));
+        this.productList.push(new Product(3, 't-shirt', 'homme', 12,"yellow"));
+        this.productList.push(new Product(4, 't-shirt', 'homme', 12,"green"));
+        this.productList.push(new Product(5, 't-shirt', 'homme', 12,"blue"));
+        this.productList.push(new Product(6, 't-shirt', 'homme', 12,"orange"));
+
+        this.productList.push(new Product(7, 't-shirt', 'femme', 14,"black"));
+        this.productList.push(new Product(8, 't-shirt', 'femme', 14,"red"));
+        this.productList.push(new Product(9, 't-shirt', 'femme', 14,"yellow"));
+        this.productList.push(new Product(10, 't-shirt', 'femme', 14,"green"));
+        this.productList.push(new Product(11, 't-shirt', 'femme', 14,"blue"));
+        this.productList.push(new Product(12, 't-shirt', 'femme', 14,"orange"));
+
+        this.productList.push(new Product(13, 'suit', 'homme', 50,"black"));
+        this.productList.push(new Product(14, 'suit', 'homme', 50,"red"));
+        this.productList.push(new Product(15, 'suit', 'homme', 50,"yellow"));
+        this.productList.push(new Product(16, 'suit', 'homme', 50,"green"));
+        this.productList.push(new Product(17, 'suit', 'homme', 50,"blue"));
+        this.productList.push(new Product(18, 'suit', 'homme', 50,"orange"));
+
+        this.productList.push(new Product(19, 'suit', 'femme', 60,"black"));
+        this.productList.push(new Product(20, 'suit', 'femme', 60,"red"));
+        this.productList.push(new Product(21, 'suit', 'femme', 60,"yellow"));
+        this.productList.push(new Product(22, 'suit', 'femme', 60,"green"));
+        this.productList.push(new Product(23, 'suit', 'femme', 60,"blue"));
+        this.productList.push(new Product(24, 'suit', 'femme', 60,"orange"));
     }
 
     getCatalogItem(productId) {
@@ -330,10 +339,10 @@ class Catalog {
 
 class Product {
 
-    constructor(id, type, sleeve, unitPrice, color = 'white', size = 'M', image = 'null') {
+    constructor(id, type, gender, unitPrice, color, size = 'M', image = 'null') {
         this.id = id;
         this.type = type;
-        this.sleeve = sleeve;
+        this.gender = gender;
         this.unitPrice = unitPrice;
         this.color = color;
         this.size = size;
@@ -357,7 +366,7 @@ class Product {
     // Méthode qui crée la description pour le produit
     createDescription() {
         let div = document.createElement("div");
-        div.innerHTML = `${this.type} avec manches ${this.sleeve} <br>
+        div.innerHTML = `${this.type=="suit"?"Costume":"T-Shirt"} pour ${this.gender} <br>
                          ${this.color} - ${this.size} <br>
                          CHF ${this.unitPrice}`;
 
@@ -365,14 +374,21 @@ class Product {
     }
 
     // Méthode qui crée une carte pour le produit contenant l'illustration, la description et le bouton pour le rajouter au panier
-    createCard() {
+    createCard(type, gender, color) {
         let card = document.createElement("div");
-        // card.appendChild(this.createIllustration()); // A REACTIVER UNE FOIS QUE LE SVG EST OPERATIONNEL
+
+        var elem = document.createElement("img");
+        elem.setAttribute("src", "./img/"+type+"-"+gender+"-"+color+".png");
+        elem.setAttribute("height", "100");
+        elem.setAttribute("width", "100");
+        elem.setAttribute("alt", "image");
+
         let icon = document.createElement("i"); // A EFFACER UNE FOIS QUE LE SVG EST OPERATIONNEL
         icon.classList.add("fas");
         icon.classList.add("fa-tshirt");
         icon.classList.add("fa-7x");
-        card.appendChild(icon);
+        //card.appendChild(icon);
+        card.appendChild(elem);
         card.appendChild(this.createDescription());
 
 
@@ -397,7 +413,7 @@ class CartItem {
     constructor(product, qty = 0) {
         this.id = product.id;
         this.type = product.type;
-        this.sleeve = product.sleeve;
+        this.gender = product.gender;
         this.unitPrice = product.unitPrice;
         this.color = product.color;
         this.size = product.size;
@@ -633,6 +649,15 @@ class CheckOutProcess {
     }
 }
 
+var submitButton = document.getElementById("submit_form");
+var form = document.getElementById("email_form");
+form.addEventListener("submit", function (e) {
+    setTimeout(function() {
+        submitButton.value = "Sending...";
+        submitButton.disabled = true;
+    }, 1);
+});
+
 var catalog = new Catalog();
 var cart = new Cart();
 var checkOutProcess = new CheckOutProcess(cart);
@@ -664,7 +689,7 @@ function createCartItemCard(cartItem) {
 
 
     let itemDescription = document.createElement("span");
-    itemDescription.innerHTML = `${cartItem.type} - ${cartItem.sleeve} - ${cartItem.color} - ${cartItem.size}`;
+    itemDescription.innerHTML = `${cartItem.type} - ${cartItem.gender} - ${cartItem.color} - ${cartItem.size}`;
     itemDescription.appendChild(deleteItemBtn);
 
     let quantityAndUnitPrice = document.createElement("span");
@@ -683,27 +708,27 @@ var filterAndDisplayCatalog = () => {
     let result = catalog.productList.slice();
 
     let type = productTypeFilter.value;
-    let sleeve = sleevesOptionFilter.value;
+    let gender = genderOptionFilter.value;
 
     if (type !== "all")
         result = result.filter(product => product.type === type);
 
-    if (sleeve !== "all")
-        result = result.filter(product => product.sleeve === sleeve);
+    if (gender !== "all")
+        result = result.filter(product => product.gender === gender);
 
     productsDisplay.innerHTML = "";
 
     result.forEach(element => {
-        productsDisplay.appendChild(element.createCard())
+        productsDisplay.appendChild(element.createCard(element.type,element.gender,element.color))
     })
 };
 
 
 productTypeFilter = document.querySelector("#product-type");
-sleevesOptionFilter = document.querySelector("#sleeves-option");
+genderOptionFilter = document.querySelector("#gender-option");
 
 productTypeFilter.addEventListener("change", filterAndDisplayCatalog);
-sleevesOptionFilter.addEventListener("change", filterAndDisplayCatalog);
+genderOptionFilter.addEventListener("change", filterAndDisplayCatalog);
 
 function restoreCartFromLocalStorage() {
     let totalCart = localStorage.getItem("totalCart");
