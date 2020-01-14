@@ -21,14 +21,13 @@ class DrawProduct
         // Enum
         this.eSizes = {WIDTH : 0, HEIGHT : 1};
 
-
         // Every segment is relatif to A0. Proportionm array stores the relatifs values for each segment
         if (type === 1) // Tshirt variant 1
-            this.proportions = new Array(1, 	 1, 	 1.3, 	 1.7,  	 0.7, 	 2,		 1.8,	 2.6, 	 3.2,  	 2.7);
+            this.proportions = [1, 	 1, 	 1.3, 	 1.7,  	 0.7, 	 2,		 1.8,	 2.6, 	 3.2,  	 2.7];
         else if (type === 2) // Tshirt variant 2
-            this.proportions = new Array(1, 	 1, 	 1.3, 	 1.7,  	 0.7, 	 2,		 1.8,	 2.6, 	 3.2,  	 1.7);
+            this.proportions = [1, 	 1, 	 1.3, 	 1.7,  	 0.7, 	 2,		 1.8,	 2.6, 	 3.2,  	 1.7];
 
-        this.eVectors	 = 			{AO : 0, BO : 1, CO : 2, DO : 3, EO : 4, AB : 5, AC : 6, AD : 7, AE : 8, AF : 9};
+        this.eVectors={AO : 0, BO : 1, CO : 2, DO : 3, EO : 4, AB : 5, AC : 6, AD : 7, AE : 8, AF : 9};
 
 
         // Size Div container
@@ -55,7 +54,8 @@ class DrawProduct
         let VectorSizePx = new Array;
         for (let i of this.proportions) // visit the element in the order it has been declared
         {
-            VectorSizePx.push(AOpx * i);	// compute the leght for each segment in pixel based on the values stored in "Proportion"
+            // compute the length for each segment in pixel based on the values stored in "Proportion"
+            VectorSizePx.push(AOpx * i);
         }
 
         // create the path element
@@ -96,7 +96,7 @@ class DrawProduct
         path.setAttributeNS(null, 'd',sd);
         path.style.stroke='black';
         path.style.strokeWidth='1px';
-        path.style.fill='balck';
+        path.style.fill='black';
 
         this.getSvgContainer().appendChild(path);
     }
@@ -160,7 +160,8 @@ class DrawProduct
         }
     }
 
-    updateGrid() // for responsive behaivior
+    // for responsive behavior
+    updateGrid()
     {
         // Size Div container
         let container = this.getDrawContainer();
@@ -339,22 +340,19 @@ class Catalog {
 
 class Product {
 
-    constructor(id, type, gender, unitPrice, color, size = 'M', image = 'null') {
+    constructor(id, type, gender, unitPrice, color, size = 'M') {
         this.id = id;
         this.type = type;
         this.gender = gender;
         this.unitPrice = unitPrice;
         this.color = color;
         this.size = size;
-        this.image = image;
         this.buy = document.createElement("button");
     }
 
     // Méthode qui crée l'illustration (SVG) pour le produit
     createIllustration() {
         let svg = document.createElement("svg");
-        // svg.innerHTML = this.image; A COMPLETER UNE FOIS QUE LES SVG SONT FONCTIONNELS
-
         let iframe = document.createElement("iframe");
         iframe.setAttribute('src', svg);
         iframe.setAttribute('width', '150px');
@@ -382,15 +380,8 @@ class Product {
         elem.setAttribute("height", "100");
         elem.setAttribute("width", "100");
         elem.setAttribute("alt", "image");
-
-        let icon = document.createElement("i"); // A EFFACER UNE FOIS QUE LE SVG EST OPERATIONNEL
-        icon.classList.add("fas");
-        icon.classList.add("fa-tshirt");
-        icon.classList.add("fa-7x");
-        //card.appendChild(icon);
         card.appendChild(elem);
         card.appendChild(this.createDescription());
-
 
         this.buy.addEventListener("click", (e) => {
             cart.addOneItem(this)
